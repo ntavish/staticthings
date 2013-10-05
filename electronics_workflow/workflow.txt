@@ -1,0 +1,86 @@
+% Electronics workflow
+% Tavish Naruka
+
+# Prototyping
+
+General workflow for most hardware projects starts with a prototype.
+
+![Prototyping on a bread board](img/bread.jpg)
+
+---
+
+## Overview of how things are usually done
+
+- Component selection
+
+	- based on constraints like price, availability with vendors, supporting components, size, power requirement, heat, input voltage etc.
+
+	- familiarity, ease of use, support, toolchains or other supporting software
+
+	- availability of documentation/schematics from manufacturer or other people
+
+---
+
+- Prototype on breadboard or prfboard or stripboard (not always possible)
+	
+	- Not all components are available as DIP, sometimes there are too many lines
+
+	- Breadboards/connecting wires dont have good electromagnetic characteristics, sometimes cannot use with high speed parts
+
+	- ![perfboard](img/perfboard_resize.jpg)
+
+---
+
+- PCB prototype
+
+	- Printed cicuit board is conducting metal laminated over a non-conducting substrate
+
+	- First step for making this is a correct schematic
+
+	- ![](img/schematic_resize.png)
+
+	
+--- 
+After schematic comes layout
+
+- PCBs can be single layer, dual, multiple  layers.
+
+- Single can sometimes be made at home
+
+- PCBs serve a few puposes, like providing conducting paths,
+  heat sink, mechanical support
+
+- ![unrouted but placed components](img/unrouted_resize.png)
+
+#
+
+Now routed
+
+- ![routed](img/routed.png)
+
+- Green gots here connect the two layers on this pcb, they are called vias
+
+
+#
+
+- Placement is important, like crystals close to uC, decoupling capacitors too
+
+- Mounting holes, connector placement
+
+- Path lengths and presense of other tracks nearby change resistance of tracks, also capacitance and inductance
+
+- differential signals and high speed parallel signals like USB or connections from RAM need length and impedance matching
+
+- RF design
+
+#
+
+A shielded PCB with an antenna on it
+
+- ![](img/pcbantenna.jpg)
+
+- ![smd sizes](img/smdsizes.jpg)
+
+#
+
+
