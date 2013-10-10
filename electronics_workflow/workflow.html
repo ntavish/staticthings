@@ -88,6 +88,7 @@
 <h1 id="section"></h1>
 <h2 id="overview-of-how-things-are-usually-done">Overview of how things are usually done</h2>
 <ul>
+<li><p>Sometimes can choose to use a development board, sometimes they are not what is needed, or expensive or not available</p></li>
 <li><p>Component selection</p>
 <ul>
 <li><p>based on constraints like price, availability with vendors, supporting components, size, power requirement, heat, input voltage etc.</p></li>
@@ -168,6 +169,59 @@
 </section>
 <section class="slide level1" id="section-7">
 <h1 id="section-7"></h1>
+<p>Firmware</p>
+<ul>
+<li><p>If using a microcontroller, these days almost exclusively C, and assembly. Sometimes C++</p></li>
+<li><p>Some peripherals and stacks can me complex, so compilers and chip maker often provides driver libraries and example code for things like USB, ethernet, or even any other peripherals and external components</p></li>
+<li><p>The reference manual is usually a reference for a family of similar chips, and the datasheet is the ultimate refernce</p></li>
+</ul>
+</section>
+<section class="slide level1" id="section-8">
+<h1 id="section-8"></h1>
+<ul>
+<li><p>Things you need to read in the manuals</p>
+<ul>
+<li><p>memory layout</p></li>
+<li><p>how does the chip boot code</p></li>
+<li><p>how do interrupts work in this particular chip</p></li>
+<li><p>system clocks</p></li>
+<li><p>about any peripherals you want to use</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level1" id="section-9">
+<h1 id="section-9"></h1>
+<p>The code that generated for executing for a desktop is called hosted; the host operating system prrovides the code a 'runtime environment'</p>
+<p>The code that is run on a microcontroller is called freestanding. The compiler, or you have to provide the C runtime.</p>
+<p>By C runtime I mean the startup code, which loads and initialzes different sections of the code. Like global variables, which are not initialized are set to 0, initialized variables in code need to be initialized, etc.</p>
+<p>The entry point of your code is usually called 'Reset vector', and that would be the start of your startup code, which would jump to your code afterwards, to a function usually named main().</p>
+</section>
+<section class="slide level1" id="section-10">
+<h1 id="section-10"></h1>
+<p>More control over the memory layout is needed when delaing with microcontrollers.</p>
+<p>For this, we need to use linker scripts, which are used by the linker portion of toolchain to arrange code. (initialized memory, unitialized memory, stack, function code, or even blocks of assembly).</p>
+<p>This kind of control is also needed for bootloades for microcontrollers. For exxample, the code being flashed by the bootloder should not have anything to with the portion of flash where the bootloader resides. So the person making an application uses a linker script where the portion of flash used by bootloader is not mapped.</p>
+</section>
+<section class="slide level1" id="section-11">
+<h1 id="section-11"></h1>
+<p>Or the platform chosen can run Linux. But</p>
+<ul>
+<li><p>It is much easier to do some kinds of things on a microcontroller. Especially things which are time critial or which require realtime behavior.</p></li>
+<li><p>Real time behavior is when the system needs to do something within a time limit. Sometimes things dont work if there is a latency or jitter between an event happening and the system doing something</p></li>
+<li><p>Things like USB devices are meant to be realized with dedicated systems not general purpose computers.</p></li>
+<li><p>Easier tweaking of low level things, could be cheaper, could be easier if system is simple</p></li>
+</ul>
+</section>
+<section class="slide level1" id="section-12">
+<h1 id="section-12"></h1>
+<p>On the other hand</p>
+<ul>
+<li><p>It is much much easier to develop your application on a system running linux.</p></li>
+<li><p>Lots of things have already been done, so you dont have to reinvent the wheel.</p></li>
+<li><p>debugging is easier</p></li>
+<li><p>A choice of many languages, C, lua, python, shell, even javascript etc.</p></li>
+<li><p>Filesystems, networking, graphics etc. These things may also be done on a some microcontroller, but with a lot more effort.</p></li>
+</ul>
 </section>
 <!-- {{{{ dzslides core
 #

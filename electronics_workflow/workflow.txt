@@ -11,6 +11,9 @@ General workflow for most hardware projects starts with a prototype.
 
 ## Overview of how things are usually done
 
+- Sometimes can choose to use a development board, sometimes they are not what is needed, or expensive
+  or not available
+
 - Component selection
 
 	- based on constraints like price, availability with vendors, supporting components, size, power requirement, heat, input voltage etc.
@@ -83,4 +86,93 @@ A shielded PCB with an antenna on it
 
 #
 
+Firmware
+
+- If using a microcontroller, these days  almost exclusively C, and assembly. Sometimes C++
+
+- Some peripherals and stacks can me complex, so compilers and chip maker often provides
+  driver libraries and example code for things like USB, ethernet, or even any other 
+  peripherals and external components
+
+- The reference manual is usually a reference for a family of similar chips, and the datasheet 
+  is the ultimate refernce
+
+#
+
+- Things you need to read in the manuals
+	
+	- memory layout
+
+	- how does the chip boot code
+
+	- how do interrupts work in this particular chip
+
+	- system clocks
+
+	- about any peripherals you want to use
+
+#
+
+The code that generated for executing for a desktop is 
+called hosted; the host operating system prrovides the code
+a 'runtime environment'
+
+The code that is run on a microcontroller is called freestanding.
+The compiler, or you have to provide the C runtime.
+
+By C runtime I mean the startup code, which loads
+and initialzes different sections of the code. Like
+global variables, which are not initialized are set to 0,
+initialized variables in code need to be initialized, etc.
+
+The entry point of your code is usually called 
+'Reset vector', and that would be the start of your
+startup code, which would jump to your code afterwards,
+to a function usually named main().
+
+#
+
+More control over the memory layout is needed when delaing with 
+microcontrollers.
+
+For this, we need to use linker scripts, which are used by the linker
+portion of toolchain to arrange code. (initialized memory, unitialized memory,
+stack, function code, or even blocks of assembly).
+
+This kind of control is also needed for bootloades for microcontrollers.
+For exxample, the code being flashed by the bootloder should not have 
+anything to with the portion of flash where the bootloader resides.
+So the person making an application uses a linker script where the portion
+of flash used by bootloader is not mapped.
+
+#
+
+Or the platform chosen can run Linux. But
+
+- It is much easier to do some kinds of things on a microcontroller. Especially
+  things which are time critial or which require realtime behavior.
+
+- Real time behavior is when the system needs to do something within a time limit.
+  Sometimes things dont work if there is a latency or jitter between an event happening and
+  the system doing something
+
+- Things like USB devices are meant to be realized with dedicated systems not general
+  purpose computers.
+
+- Easier tweaking of low level things, could be cheaper, could be easier if system is simple
+
+#
+
+On the other hand
+
+- It is much much easier to develop your application on a system running linux.
+
+- Lots of things have already been done, so you dont have to reinvent the wheel.
+
+- debugging is easier
+
+- A choice of many languages, C, lua, python, shell, even javascript etc.
+
+- Filesystems, networking, graphics etc. These things may also be done on a 
+  some microcontroller, but with a lot more effort.
 
