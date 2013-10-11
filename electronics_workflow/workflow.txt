@@ -90,12 +90,20 @@ Firmware
 
 - If using a microcontroller, these days  almost exclusively C, and assembly. Sometimes C++
 
-- Some peripherals and stacks can me complex, so compilers and chip maker often provides
-  driver libraries and example code for things like USB, ethernet, or even any other 
-  peripherals and external components
+- Some peripherals and stacks can be complex, so compilers and chip makers often provides
+  driver libraries and example code for things like USB, ethernet, and other 
+  peripherals and sometimes for some external components too
 
 - The reference manual is usually a reference for a family of similar chips, and the datasheet 
-  is the ultimate refernce
+  is the ultimate reference
+
+#
+
+![ARM cortex m3 memory map](img/arm_memory_map.gif)
+
+#
+
+![Peripherals and clocks](img/peripherals.png)
 
 #
 
@@ -113,35 +121,44 @@ Firmware
 
 #
 
-The code that generated for executing for a desktop is 
+The code that is generated for executing for a desktop is 
 called hosted; the host operating system prrovides the code
 a 'runtime environment'
 
 The code that is run on a microcontroller is called freestanding.
 The compiler, or you have to provide the C runtime.
 
-By C runtime I mean the startup code, which loads
+C runtime here means the startup code, which loads
 and initialzes different sections of the code. Like
 global variables, which are not initialized are set to 0,
-initialized variables in code need to be initialized, etc.
+initialized variables in code need to be initialized, jumping to
+main(), etc.
 
 The entry point of your code is usually called 
 'Reset vector', and that would be the start of your
 startup code, which would jump to your code afterwards,
-to a function usually named main().
+usually a function named main().
 
 #
 
-More control over the memory layout is needed when delaing with 
+![crt](img/crt_resized.png)
+
+Usually this code should not work since this C code seems to be using
+stack (the two variables pDst, pSrc). It works because of the stack pointer 
+is setup at boot, and there are stack push and stack pop instructions.
+
+#
+
+More control over the memory layout is needed when dealing with 
 microcontrollers.
 
 For this, we need to use linker scripts, which are used by the linker
 portion of toolchain to arrange code. (initialized memory, unitialized memory,
-stack, function code, or even blocks of assembly).
+stack, function code, or even blocks of assembly, interrupt vectors).
 
 This kind of control is also needed for bootloades for microcontrollers.
-For exxample, the code being flashed by the bootloder should not have 
-anything to with the portion of flash where the bootloader resides.
+For example, the code being flashed by the bootloder should not have 
+anything to do with the portion of flash where the bootloader resides.
 So the person making an application uses a linker script where the portion
 of flash used by bootloader is not mapped.
 

@@ -1,2 +1,2 @@
 all:
-	pandoc -s --webtex -t dzslides workflow.txt -o workflow.html
+	pandoc -t slidy --self-contained  workflow.txt -o workflow.html
