@@ -1,22 +1,25 @@
-% Electronics workflow
+% Hardware prototyping workflow
 % Tavish Naruka
 
 # Prototyping
 
-General workflow for most hardware projects starts with a prototype.
+These are some things I learnt about the way to approach a hardware/mixed domain project
+in the last ~2 years
 
-![Prototyping on a bread board](img/bread.jpg)
+This is supposed to give an overview of the things that are done/considered in a project
 
 ---
 
 ## Overview of how things are usually done
 
-- Sometimes can choose to use a development board, sometimes they are not what is needed, or expensive
-  or not available
-
 - Component selection
 
-	- based on constraints like price, availability with vendors, supporting components, size, power requirement, heat, input voltage etc.
+	- The main 'cores' for which provide the most functionality are the first things to think about
+
+	- Can be a microcontoller, microprocessor, FPGA, ASIC etc., or can be something simpler for not too 		  complicated neeeds
+
+	- based on constraints like price, availability with vendors, supporting components, size, 
+	  power requirement, heat, input voltage etc.
 
 	- familiarity, ease of use, support, toolchains or other supporting software
 
@@ -24,11 +27,15 @@ General workflow for most hardware projects starts with a prototype.
 
 ---
 
+- Sometimes can choose to use a development board, sometimes they are not what is needed, or expensive
+  or not available
+
 - Prototype on breadboard or prfboard or stripboard (not always possible)
 	
 	- Not all components are available as DIP, sometimes there are too many lines
 
-	- Breadboards/connecting wires dont have good electromagnetic characteristics, sometimes cannot use with high speed parts
+	- Breadboards/connecting wires dont have good electromagnetic characteristics, sometimes cannot 
+	  use with high speed parts
 
 	- ![perfboard](img/perfboard_resize.jpg)
 
@@ -40,7 +47,7 @@ General workflow for most hardware projects starts with a prototype.
 
 	- First step for making this is a correct schematic
 
-	- ![](img/schematic_resize.png)
+	- ![A schematic](img/schematic_resize.png)
 
 	
 --- 
@@ -59,20 +66,21 @@ After schematic comes layout
 
 Now routed
 
-- ![routed](img/routed.png)
+- ![routed pcb](img/routed.png)
 
 - Green gots here connect the two layers on this pcb, they are called vias
-
 
 #
 
 - Placement is important, like crystals close to uC, decoupling capacitors too
 
-- Mounting holes, connector placement
+- Mounting holes, connector placement, casing choice
 
-- Path lengths and presense of other tracks nearby change resistance of tracks, also capacitance and inductance
+- Path lengths and presense of other tracks nearby change resistance of tracks, also capacitance and 
+  inductance
 
-- differential signals and high speed parallel signals like USB or connections from RAM need length and impedance matching
+- differential signals and high speed parallel signals like USB or connections from RAM need length and 
+  impedance matching
 
 - RF design
 
@@ -84,18 +92,18 @@ A shielded PCB with an antenna on it
 
 - ![smd sizes](img/smdsizes.jpg)
 
-#
+# Using a microcontroller in design
 
 Firmware
 
-- If using a microcontroller, these days  almost exclusively C, and assembly. Sometimes C++
+- If using a microcontroller, most code is in C, and assembly. Sometimes C++.
 
 - Some peripherals and stacks can be complex, so compilers and chip makers often provides
   driver libraries and example code for things like USB, ethernet, and other 
   peripherals and sometimes for some external components too
 
-- The reference manual is usually a reference for a family of similar chips, and the datasheet 
-  is the ultimate reference
+- The reference manual is usually a reference for a family of similar chips, and 
+  the datasheet is the ultimate reference
 
 #
 
